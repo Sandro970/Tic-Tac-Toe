@@ -3,12 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
-  return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
-  );
+
+  if (props.value == 'X') {
+    return (
+      <button className="square X" onClick={props.onClick}>
+        {props.value}
+      </button>
+    );
+  } else {
+    return (
+      <button className="square O" onClick={props.onClick}>
+        {props.value}
+      </button>
+    );
+  }
 }
+
+//Board
 
 class Board extends React.Component {
   
@@ -42,6 +53,8 @@ class Board extends React.Component {
   }
 }
 
+// Game
+
 class Game extends React.Component {
 	constructor(props) {
 		super(props);
@@ -58,6 +71,8 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+    const locations = [[1, 1], [2, 1], [3, 1], [1, 2], [2, 2], [3, 2], [1, 3], [2, 3], [3, 3] ];
+
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -65,8 +80,9 @@ class Game extends React.Component {
     this.setState({
       history: history.concat([{
         squares: squares,
+        location: locations[i]
       }]),
-	  stepNumber: history.length,
+	    stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     });
   }
@@ -80,42 +96,66 @@ class Game extends React.Component {
   
   render() {
 	const history = this.state.history;
-    const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+  const current = history[this.state.stepNumber];
+  const winner = calculateWinner(current.squares);
+  let Xcoloring = 1;
 	
 	const moves = history.map((step, move) => {
       const desc = move ?
-        'Go to move #' + move :
+        'Go to move #' + move + ' (' + (move % 2 ? 'X' : 'O') + ' at position ' + history[move].location + ')':
         'Go to game start';
-      return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
-        </li>
-      );
+      if (move % 2) {
+        return (
+          <li key={move}>
+            <button onClick={() => this.jumpTo(move)}>
+            {move === this.state.stepNumber ? <b className = "highlightedX" style = {{marginLeft:"0"}}>{desc}</b> : desc}
+            </button>
+          </li>
+        );
+      } else {
+        return (
+          <li key={move}>
+            <button onClick={() => this.jumpTo(move)}>
+            {move === this.state.stepNumber ? <b className = "highlightedO" style = {{marginLeft:"0"}}>{desc}</b> : desc}
+            </button>
+          </li>
+        );
+      }
+      
     });
 	
     let status;
-    if (winner == "draw") {
-		status = 'The game is a draw!';
+    let status1;
+    if (winner === "draw") {
+		status = 'It\'s a draw!';
 	} else if (winner) {
-      status = 'Winner: ' + winner;
+      status = 'Winner: ';
+      status1 = winner;
     } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      if (this.state.xIsNext) {
+        status = 'Next player: ';
+        status1 = ' X';
+        Xcoloring = 1;
+      } else {
+        status = 'Next player: ';
+        status1 = ' O';
+        Xcoloring = 0;
+      }
     }
-    return (
-      <div className="game">
-        <div className="game-board">
-          <Board 
-		   squares={current.squares}
-		   onClick={(i) => this.handleClick(i)}
-		   />
+      return (
+        <div className="game">
+          <div className="whoseMove">{status}<div className={Xcoloring ? 'highlightedX' : 'highlightedO'}>{status1}</div></div>
+          <div className="game-board">
+            <Board 
+        squares={current.squares}
+        onClick={(i) => this.handleClick(i)}
+        />
+          </div>
+          <div className="game-info">
+            <ol>{moves}</ol>
+          </div>
         </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <ol>{moves}</ol>
-        </div>
-      </div>
-    );
+      );
   }
 }
 
@@ -148,7 +188,7 @@ function calculateWinner(squares) {
   for (let i = 0; i < squares.length; i++) {
 	  if (squares[i] != null) counter++;
   }
-  if (counter == 9) {
+  if (counter === 9) {
 	 return "draw";
   }
   
