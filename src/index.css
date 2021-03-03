@@ -71,6 +71,10 @@ ol, ul {
   font-size: 350%;
 }
 
+.victory-square {
+  animation: winnerColorChange 1s infinite;
+}
+
 .game {
   justify-content: center;
   display: grid;
@@ -83,4 +87,9 @@ ol, ul {
   width: 270px;
   display: grid;
   margin-top: 10%;
+}
+
+@keyframes winnerColorChange {
+  from {background-color: yellow;}
+  to {background-color: white;}
 }
