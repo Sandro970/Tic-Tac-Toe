@@ -1,5 +1,6 @@
 This project is an expansion from the ReactJS tutorial found here: https://reactjs.org/tutorial/tutorial.html
-<br>
+<br><br>
+
 <b> Launching: </b>
 <hr>
 <ol>
@@ -20,6 +21,13 @@ Open http://localhost:3000 to view it in the browser (runs in development mode).
   <li> Highlights current move </li>
   <li> Tracks whose move it is as well as result </li>
   <li> Possibility to choose board size (from 3 to 10) </li>
+  <li> Animated victory line </li>
 </ul>
-
+<br><br>
+<b> Images <b>
+<hr>
+<img src = "https://ibb.co/sQ8N8Hr" alt = "Tic-Tac-Toe_Image1">
+<img src = "https://ibb.co/MGmG2fg" alt = "Tic-Tac-Toe_Image2">
+ 
+<br>
 Have fun! :)
