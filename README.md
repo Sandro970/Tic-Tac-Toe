@@ -26,8 +26,8 @@ Open http://localhost:3000 to view it in the browser (runs in development mode).
 <br><br>
 <b> Images <b>
 <hr>
-<img src = "https://ibb.co/sQ8N8Hr" alt = "Tic-Tac-Toe_Image1">
-<img src = "https://ibb.co/MGmG2fg" alt = "Tic-Tac-Toe_Image2">
+<img src = "https://i.ibb.co/vm0T0Y8/chrome-31lox-FSub-D.png" alt = "Tic-Tac-Toe_Image1">
+<img src = "https://i.ibb.co/rcVc73Q/chrome-NYb-Mg-VYHg-D.png" alt = "Tic-Tac-Toe_Image2">
  
 <br>
 Have fun! :)
