@@ -234,13 +234,13 @@ function getGameStatus(squares, boardSize) {
 	  if (squares[i] != null) counter++;
   }
 
-  if (counter === boardSize**2) {
-	 return 'draw';
-  }
+  
 
   if (checkForWinner(squares, boardSize)) {
     return 'end';
-  }
+  } else if (counter === boardSize**2) {
+    return 'draw';
+   }
 
   return 'playing';
 }
