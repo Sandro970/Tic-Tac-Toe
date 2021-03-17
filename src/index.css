@@ -29,7 +29,7 @@ ol, ul {
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
-  text-align: center; 
+  text-align: center;
 }
 
 .square:focus {
@@ -38,10 +38,6 @@ ol, ul {
 
 .kbd-navigation .square:focus {
   background: #ddd;
-}
-
-.game-board {
-  margin: auto;
 }
 
 .X {
@@ -62,34 +58,54 @@ ol, ul {
   margin-left: 10px;
 }
 
-.whoseMove {
-  display: flex;
-  justify-content: center;
-  width: 400px;
-  margin-top: 20px;
-  margin-bottom: 50px; 
-  font-size: 350%;
-}
-
 .victory-square {
   animation: winnerColorChange 1s infinite;
 }
 
-.game {
-  justify-content: center;
+.screen {
   display: grid;
+  width: 100%;
+  height: 100%;
+}
+
+.whoseMove {
+  display: flex;
+  justify-content: center;
   margin: auto;
-  flex-direction: row;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 350%;
+}
+
+.game {
+  display: flex;
+  position: grid;
+  width: 100%;
+  height: auto;
+  margin-top: 40px;
+}
+
+.editBoard {
+  position: relative;
+  width: 350px;
+  margin-left: 200px;
+}
+
+.game-board {
+  margin: 0 auto;
 }
 
 .game-info {
-  margin: auto;
+  float: right;
+  margin-right: 300px;
   width: 270px;
-  display: grid;
-  margin-top: 10%;
 }
 
 @keyframes winnerColorChange {
-  from {background-color: yellow;}
-  to {background-color: white;}
+  from {
+    background-color: yellow;
+  }
+  to {
+    background-color: white;
+  }
 }

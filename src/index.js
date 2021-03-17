@@ -47,8 +47,7 @@ function Board(boardSize, winningSquares, squares, onClick) {
 class Game extends React.Component {
 	constructor(props) {
 		super(props);
-    let boardSizeEntry = 1; //initialized because of while condition in next line
-    while (boardSizeEntry < 3) {boardSizeEntry = prompt("Enter the number of rows and columns of the board. Can't be less than 3!", 3)}
+    var boardSizeEntry = 3; //starting value
 		this.state = {
       boardSize: parseInt(boardSizeEntry),
 		  history: [{
@@ -58,6 +57,21 @@ class Game extends React.Component {
 		  xIsNext: true,
 		};
 	}
+
+  editBoardSize(value) {
+    let newBoardSize = value;
+    while (isNaN(newBoardSize) || newBoardSize < 3) {
+      newBoardSize = prompt("That is not a valid value! Enter the board size - a number between 3 and 10!", 3);
+    }
+    this.setState({
+      boardSize: parseInt(newBoardSize),
+      history: [{
+        squares: Array(parseInt(newBoardSize)**2).fill(null),
+        }],
+        stepNumber: 0,
+		  xIsNext: true,
+    });
+  }
 	
 	handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
@@ -137,17 +151,25 @@ class Game extends React.Component {
     
     let onClick=(i) => this.handleClick(i);
     return (
-      <div className="game">
+      <div className="screen">
         <div className="whoseMove">{status}
           <div className={'highlighted' + (winner ? winningPlayer : nextPlayer)}>
             {winner ? winner.player : nextPlayer}
           </div>
         </div>
-        <div className="game-board">
-          {Board(boardSize, winner ? winner.winningLine : [], current.squares, onClick)}
-        </div>
-        <div className="game-info">
-          <ol>{moves}</ol>
+        <div className="game">
+          <div className="editBoard">
+            <p style={{fontSize: "120%", marginLeft: "15%"}}>Board size (between 3 and 10):</p>
+            <form>
+              <input type = "number" id="newBoardSize" min = "3" max = "10" onChange = {() => this.editBoardSize(document.getElementById("newBoardSize").value)} style={{marginLeft: "40%"}} />
+            </form>
+          </div>
+          <div className="game-board">
+            {Board(boardSize, winner ? winner.winningLine : [], current.squares, onClick)}
+          </div>
+          <div className="game-info">
+            <ol>{moves}</ol>
+          </div>
         </div>
       </div>
     );
