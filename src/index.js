@@ -60,7 +60,7 @@ class Game extends React.Component {
 
   editBoardSize(value) {
     let newBoardSize = value;
-    while (isNaN(newBoardSize) || newBoardSize < 3) {
+    while (isNaN(newBoardSize) || newBoardSize < 3 || newBoardSize > 10) {
       newBoardSize = prompt("That is not a valid value! Enter the board size - a number between 3 and 10!", 3);
     }
     this.setState({
